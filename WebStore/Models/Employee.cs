@@ -12,6 +12,7 @@ namespace WebStore.Models
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public int Age { get; set; }
+        public string Phone { get; set; }
     }
 
     //public record Employee2(int Id, string LastName, string Patronymic, int Age);
