@@ -21,6 +21,9 @@
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Возраст</th>
+                <th>
+                    Посмотреть
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -32,11 +35,17 @@
                     <td>@employee.FirstName</td>
                     <td>@employee.Patronymic</td>
                     <td>@employee.Age</td>
+                    <td>
+                        <a href="/Home/Employee/@employee.Id">
+                            подробнее
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 
+    <hr />
     <p>
         <a href="/">Домой</a>
     </p>

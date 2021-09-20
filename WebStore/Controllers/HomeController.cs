@@ -29,5 +29,11 @@ namespace WebStore.Controllers
         {
             return View(__Employees);
         }
+
+        public IActionResult Employee(int id)
+        {
+            var employee = __Employees.Find(x => x.Id == id);
+            return View(employee);
+        }
     }
 }
