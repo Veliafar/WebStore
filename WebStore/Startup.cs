@@ -35,13 +35,11 @@ namespace WebStore
 
 
             app.UseRouting();
-
-            var hello = Configuration["Greetings"];
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync(hello);
+                    await context.Response.WriteAsync(Configuration["Greetings"]);
                 });
             });
         }
