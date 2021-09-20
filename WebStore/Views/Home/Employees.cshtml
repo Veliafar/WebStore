@@ -11,7 +11,7 @@
 <body>
 
     <h3>Сотрудники</h3>
-    <hr/>
+    <hr />
 
     <table>
         <thead>
@@ -24,18 +24,22 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var employee in Model)
+            @foreach (var employee in Model)
             {
-            <tr>
-                <td>@employee.Id</td>
-                <td>@employee.LastName</td>
-                <td>@employee.FirstName</td>
-                <td>@employee.Patronymic</td>
-                <td>@employee.Age</td>
-            </tr>
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.Patronymic</td>
+                    <td>@employee.Age</td>
+                </tr>
             }
         </tbody>
     </table>
+
+    <p>
+        <a href="/">Домой</a>
+    </p>
 
 </body>
 </html>
