@@ -36,7 +36,7 @@ namespace WebStore
                 app.UseExceptionHandler("/Error");
             }
 
-
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
