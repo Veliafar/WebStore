@@ -10,9 +10,22 @@ namespace WebStore.Controllers
 
         public IActionResult Index() => View();// http://localhost:500/Home/Index
 
-        public IActionResult SecondAction(string id)
-        {
-            return Content($"Second action with parametr {id}");
-        }         
+        public IActionResult Page404() => View();
+
+        public IActionResult Blogs() => View();
+        
+        public IActionResult BlogSingle() => View();
+
+        public IActionResult Cart() => View();
+
+        public IActionResult Checkout() => View();
+
+        public IActionResult ContactUs() => View();
+
+        public IActionResult Login() => View();
+
+        public IActionResult ProductDetails() => View();
+
+        public IActionResult Shop() => View();
     }
 }
