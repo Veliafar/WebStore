@@ -1,22 +1,21 @@
-﻿@model IEnumerable<WebStore.Models.Employee>
+﻿<partial name="Partial/_Slider"/>
 
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSidebar" />
+            </div>
 
-<!DOCTYPE html>
+            <div class="col-sm-9 padding-right">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+                <partial name="Partial/_Products" />
 
-    <h3>Заголовок</h3>
-    <p>Привет из представления</p>
+                <partial name="Partial/_CategoryTab" />
 
-    <hr />
-    <p>
-        <a href="/Home/Employees">Сотрудники</a>
-    </p>
+                <partial name="Partial/_RecomendedItems" />
 
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</section>
