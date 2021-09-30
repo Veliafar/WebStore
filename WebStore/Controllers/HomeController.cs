@@ -3,11 +3,7 @@
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
-    {
-
-
-        
-
+    {        
         public IActionResult Index() => View();// http://localhost:500/Home/Index
 
         public IActionResult Page404() => View();
@@ -27,5 +23,8 @@ namespace WebStore.Controllers
         public IActionResult ProductDetails() => View();
 
         public IActionResult Shop() => View();
+
+
+        public IActionResult Status(string Code) => Content($"Status code - {Code}");
     }
 }
