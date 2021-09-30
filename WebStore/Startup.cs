@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Infrastucture.Middleware;
 
 namespace WebStore
 {
@@ -38,6 +39,9 @@ namespace WebStore
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseMiddleware<TestMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/greetings", async context =>
