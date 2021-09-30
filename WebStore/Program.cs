@@ -17,6 +17,5 @@ namespace WebStore
                 .ConfigureWebHostDefaults(host => host
                     .UseStartup<Startup>()
                 );
-        // lesson 2
     }
 }
