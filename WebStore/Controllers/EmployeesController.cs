@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace WebStore.Controllers
 {
+    //[Route("Employees/[action]/{id?}")]
+    //[Route("Staff/[action]/{id?}")]
     public class EmployeesController : Controller
     {
 
@@ -18,9 +20,10 @@ namespace WebStore.Controllers
         }
 
         
-
+        //[Route("~/employees/all")]
         public IActionResult Index() => View(_Employees);// http://localhost:500/Home/Employees        
 
+        //[Route("~/employees/info-{id}")]
         public IActionResult Details(int id)
         {
             //var employee = _Employees.FirstOrDefault(x => x.Id == id);
