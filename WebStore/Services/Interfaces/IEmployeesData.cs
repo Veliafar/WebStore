@@ -11,7 +11,7 @@ namespace WebStore.Services.Interfaces
 
         IEnumerable<Employee> GetAll();
 
-        Employee GetById(int id);
+        Employee GetById(int? id);
 
         int Add(Employee employee);
 

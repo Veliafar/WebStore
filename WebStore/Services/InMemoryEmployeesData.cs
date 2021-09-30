@@ -49,7 +49,7 @@ namespace WebStore.Services
             return TestData.Employees;
         }
 
-        public Employee GetById(int id)
+        public Employee GetById(int? id)
         {
             return TestData.Employees.SingleOrDefault(employee => employee.Id == id);
         }
