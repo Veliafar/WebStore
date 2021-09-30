@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using WebStore.Data;
 using WebStore.Models;
 using System.Linq;
+using WebStore.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WebStore.Controllers
 {
@@ -13,21 +15,24 @@ namespace WebStore.Controllers
 
 
         private readonly IEnumerable<Employee> _Employees;
+        private readonly IEmployeesData _EmployeesData;
+        private readonly ILogger<EmployeesController> _Logger;
 
-        public EmployeesController()
+        public EmployeesController(IEmployeesData EmployeesData, ILogger<EmployeesController> Logger)
         {
-            _Employees = TestData.Employees;
+            _EmployeesData = EmployeesData;
+            _Logger = Logger;
         }
 
         
         //[Route("~/employees/all")]
-        public IActionResult Index() => View(_Employees);// http://localhost:500/Home/Employees        
+        public IActionResult Index() => View(_EmployeesData.GetAll());// http://localhost:500/Home/Employees        
 
         //[Route("~/employees/info-{id}")]
         public IActionResult Details(int id)
         {
             //var employee = _Employees.FirstOrDefault(x => x.Id == id);
-            var employee = _Employees.SingleOrDefault(x => x.Id == id);
+            var employee = _EmployeesData.GetById(id);
 
             if(employee is null)
             {
@@ -36,11 +41,6 @@ namespace WebStore.Controllers
 
 
             return View(employee);
-        }
-
-        public IActionResult TestAction(string Param1, int Param2)
-        {
-            return Content($"P1:{Param1} - P2:{Param2}");
         }
     }
 }
