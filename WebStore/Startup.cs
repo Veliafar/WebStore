@@ -44,12 +44,17 @@ namespace WebStore
                 app.UseExceptionHandler("/Error");
             }
 
+            //app.UseStatusCodePages();
+
             app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseMiddleware<TestMiddleware>();
 
-            app.UseWelcomePage("/welcome"); 
+            app.UseWelcomePage("/welcome");
+
+            //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
 
             app.UseEndpoints(endpoints =>
             {
