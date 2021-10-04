@@ -13,9 +13,6 @@ namespace WebStore.Controllers
     //[Route("Staff/[action]/{id?}")]
     public class EmployeesController : Controller
     {
-
-
-        private readonly IEnumerable<Employee> _Employees;
         private readonly IEmployeesData _EmployeesData;
         private readonly ILogger<EmployeesController> _Logger;
 
