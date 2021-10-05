@@ -22,8 +22,6 @@ namespace WebStore.Controllers
 
         public IActionResult ProductDetails() => View();
 
-        public IActionResult Shop() => View();
-
 
         public IActionResult Status(string Code) => Content($"Status code - {Code}");
     }
