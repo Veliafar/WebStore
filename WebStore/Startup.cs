@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.DAL.Context;
 using WebStore.Infrastucture.Conventions;
 using WebStore.Infrastucture.Middleware;
 using WebStore.Services;
 using WebStore.Services.Interfaces;
-using WebStore.DAL.Context;
 
 namespace WebStore
 {
