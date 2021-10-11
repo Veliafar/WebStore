@@ -77,6 +77,8 @@ namespace WebStore
                         "{controller=Home}/{action=Index}/{id?}"
                     );
             });
+
+            // lesson 1.7
         }
     }
 }
