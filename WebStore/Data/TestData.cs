@@ -39,7 +39,7 @@ namespace WebStore.Data
             new Section {Id = 18, Name = "Для женщин", Order = 2},
                 new Section {Id = 19, Name = "Fendi", Order = 0, ParentId = 18},
                 new Section {Id = 20, Name = "Guess", Order = 1, ParentId = 18},
-                new Section {Id = 21, Name = "Valentino", Order = 2, ParentId = 18},
+                new Section {Id = 21, Name = "Valentin", Order = 2, ParentId = 18},
                 new Section {Id = 22, Name = "Dior", Order = 3, ParentId = 18},
                 new Section {Id = 23, Name = "Versace", Order = 4, ParentId = 18},
             new Section {Id = 24, Name = "Для детей", Order = 3},

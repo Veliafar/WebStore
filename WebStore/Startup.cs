@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.DAL.Context;
+using WebStore.Data;
 using WebStore.Infrastucture.Conventions;
 using WebStore.Infrastucture.Middleware;
 using WebStore.Services;
@@ -26,8 +27,8 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebStoreDB>(opts =>
-                opts.UseSqlServer(Configuration.GetConnectionString("SqlServer")
-            ));
+                opts.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+            services.AddTransient<WebStoreDbInitializer>();
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddSingleton<IProductData, InMemoryProductData>();
