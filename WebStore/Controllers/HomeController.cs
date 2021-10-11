@@ -6,7 +6,7 @@ namespace WebStore.Controllers
     {        
         public IActionResult Index() => View();// http://localhost:500/Home/Index
 
-        public IActionResult Page404() => View();
+        //public IActionResult Page404() => View();
 
         public IActionResult Blogs() => View();
         
@@ -23,6 +23,14 @@ namespace WebStore.Controllers
         public IActionResult ProductDetails() => View();
 
 
-        public IActionResult Status(string Code) => Content($"Status code - {Code}");
+        public IActionResult Status(string id) 
+        {
+            switch (id)
+            {
+
+                default: return Content($"Status --- {id}");
+                case "404": return View("Page404");
+            }
+        }
     }
 }
