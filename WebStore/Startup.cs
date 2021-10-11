@@ -24,6 +24,7 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddSingleton<IProductData, InMemoryProductData>();
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
 
@@ -38,18 +39,24 @@ namespace WebStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
             }
 
+            //app.UseStatusCodePages();
+
             app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseMiddleware<TestMiddleware>();
 
-            app.UseWelcomePage("/welcome"); 
+            app.UseWelcomePage("/welcome");
+
+            //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
 
             app.UseEndpoints(endpoints =>
             {
