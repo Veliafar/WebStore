@@ -42,6 +42,13 @@ namespace WebStore.Data
 
         private async Task InitializeProductsAsync()
         {
+
+            if (_db.Sections.Any())
+            {
+                _Logger.LogInformation("**LOGGER** DB loaded without init -- DB Exist already");
+                return;
+            }
+
             _Logger.LogInformation("**LOGGER** Write Sections...");
             await using (await _db.Database.BeginTransactionAsync())
             {
