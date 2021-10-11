@@ -1,15 +1,25 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
+using WebStore.Data;
 
 namespace WebStore
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host_builder = CreateHostBuilder(args);
             var host =  host_builder.Build();
-            host.Run();
+
+            using(var scope = host.Services.CreateScope())
+            {
+                var initializator = scope.ServiceProvider.GetRequiredService<WebStoreDbInitializer>();
+                await initializator.InitializeAsync();
+            }
+
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

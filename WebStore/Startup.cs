@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.DAL.Context;
+using WebStore.Data;
 using WebStore.Infrastucture.Conventions;
 using WebStore.Infrastucture.Middleware;
-using WebStore.Services;
+using WebStore.InMemory.Services;
+using WebStore.Services.InSQL;
 using WebStore.Services.Interfaces;
 
 namespace WebStore
@@ -23,10 +27,15 @@ namespace WebStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opts =>
+                opts.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+            services.AddTransient<WebStoreDbInitializer>();
+
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddSingleton<IProductData, InMemoryProductData>();
-            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
+
 
             services
                 .AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
@@ -46,7 +55,7 @@ namespace WebStore
                 app.UseExceptionHandler("/Error");
             }
 
-            //app.UseStatusCodePages();
+            app.UseStatusCodePagesWithRedirects("~/home/status/{0}");
 
             app.UseStaticFiles();
 
@@ -55,8 +64,6 @@ namespace WebStore
             app.UseMiddleware<TestMiddleware>();
 
             app.UseWelcomePage("/welcome");
-
-            //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
 
             app.UseEndpoints(endpoints =>
             {
@@ -68,7 +75,7 @@ namespace WebStore
                 endpoints.MapControllerRoute(
                         "default",
                         "{controller=Home}/{action=Index}/{id?}"
-                    ); 
+                    );
             });
         }
     }

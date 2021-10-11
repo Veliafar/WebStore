@@ -38,7 +38,17 @@ namespace WebStore.Controllers
             }
 
 
-            return View(employee);
+            var model = new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Name = employee.FirstName,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Phone = employee.Phone,
+            };
+
+            return View(model);
         }
 
         public IActionResult Create() => View("Edit", new EmployeeViewModel());

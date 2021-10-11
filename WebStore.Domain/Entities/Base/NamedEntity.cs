@@ -1,11 +1,11 @@
-﻿using WebStore.Domain.Entities.Base.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Domain.Entities.Base.Interfaces;
 
 namespace WebStore.Domain.Entities.Base
 {
-    public abstract class NamedEntity : IEntity, INamedEntity
+    public abstract class NamedEntity : Entity, INamedEntity
     {
-        public int Id { get; set; }
-
+        [Required]
         public string Name { get; set; }
     }
 }
