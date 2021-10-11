@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,7 @@ using WebStore.Infrastucture.Conventions;
 using WebStore.Infrastucture.Middleware;
 using WebStore.Services;
 using WebStore.Services.Interfaces;
+using WebStore.DAL.Context;
 
 namespace WebStore
 {
@@ -23,6 +25,10 @@ namespace WebStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opts =>
+                opts.UseSqlServer(Configuration.GetConnectionString("SqlServer")
+            ));
+
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddSingleton<IProductData, InMemoryProductData>();
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
@@ -66,7 +72,7 @@ namespace WebStore
                 endpoints.MapControllerRoute(
                         "default",
                         "{controller=Home}/{action=Index}/{id?}"
-                    ); 
+                    );
             });
         }
     }
