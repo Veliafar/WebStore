@@ -16,7 +16,6 @@ namespace WebStore
             using(var scope = host.Services.CreateScope())
             {
                 var initializator = scope.ServiceProvider.GetRequiredService<WebStoreDbInitializer>();
-
                 await initializator.InitializeAsync();
             }
 
