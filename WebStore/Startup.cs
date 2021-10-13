@@ -63,8 +63,6 @@ namespace WebStore
                         "{controller=Home}/{action=Index}/{id?}"
                     ); 
             });
-
-            // 1.6
         }
     }
 }
