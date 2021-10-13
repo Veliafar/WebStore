@@ -13,9 +13,6 @@ namespace WebStore.Controllers
     //[Route("Staff/[action]/{id?}")]
     public class EmployeesController : Controller
     {
-
-
-        private readonly IEnumerable<Employee> _Employees;
         private readonly IEmployeesData _EmployeesData;
         private readonly ILogger<EmployeesController> _Logger;
 
@@ -41,7 +38,17 @@ namespace WebStore.Controllers
             }
 
 
-            return View(employee);
+            var model = new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Name = employee.FirstName,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Phone = employee.Phone,
+            };
+
+            return View(model);
         }
 
         public IActionResult Create() => View("Edit", new EmployeeViewModel());
@@ -73,22 +80,28 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EmployeeViewModel Model)
+        public IActionResult Edit(EmployeeViewModel model)
         {
+            if (model.Name == "Бин" && model.LastName == "Асама" && model.Patronymic == "Ладан")
+                ModelState.AddModelError("", "Террористы не пройдут!");
+
+            if (!ModelState.IsValid) return View(model);
+           
             var employee = new Employee
             {
-                Id = Model.Id,
-                FirstName = Model.Name,
-                LastName = Model.LastName,
-                Patronymic = Model.Patronymic,
-                Age = Model.Age,
-                Phone = Model.Phone,
+                Id = model.Id,
+                FirstName = model.Name,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
+                Age = model.Age,
+                Phone = model.Phone,
             };
 
             if (employee.Id == 0)
             {
                 _EmployeesData.Add(employee);
-            } else
+            }
+            else
             {
                 _EmployeesData.Update(employee);
             }
