@@ -35,7 +35,7 @@ namespace WebStore.Data
             {
                 _Logger.LogInformation("**LOGGER** use migrations {0}", string.Join(",", pending_migrations));
                 await _db.Database.MigrateAsync();
-            }                
+            }
 
             await InitializeProductsAsync();
         }
@@ -49,46 +49,44 @@ namespace WebStore.Data
                 return;
             }
 
-            _Logger.LogInformation("**LOGGER** Write Sections...");
+            var sections_pool = TestData.Sections.ToDictionary(section => section.Id);
+            var brands_pool = TestData.Brands.ToDictionary(brand => brand.Id);
+
+            foreach (var child_section in TestData.Sections.Where(section => section.ParentId is not null))
+                child_section.Parent = sections_pool[(int)child_section.ParentId!];
+
+            foreach (var product in TestData.Products)
+            {
+                product.Section = sections_pool[product.SectionId];
+                if (product.BrandId is { } brand_id)
+                    product.Brand = brands_pool[brand_id];
+
+                product.Id = 0;
+                product.SectionId = 0;
+                product.BrandId = null;
+            }
+
+            foreach (var section in TestData.Sections)
+            {
+                section.Id = 0;
+                section.ParentId = null;
+            }
+
+            foreach (var brand in TestData.Brands)
+                brand.Id = 0;
+
+
+            _Logger.LogInformation("**LOGGER** Write data...");
             await using (await _db.Database.BeginTransactionAsync())
             {
                 _db.Sections.AddRange(TestData.Sections);
-
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] ON");
-                await _db.SaveChangesAsync();
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] OFF");
-
-                await _db.Database.CommitTransactionAsync();
-            }
-            _Logger.LogInformation("**LOGGER** Write Sections success");
-
-
-            _Logger.LogInformation("**LOGGER** Write Brands...");
-            await using (await _db.Database.BeginTransactionAsync())
-            {
                 _db.Brands.AddRange(TestData.Brands);
-
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Brands] ON");
-                await _db.SaveChangesAsync();
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Brands] OFF");
-
-                await _db.Database.CommitTransactionAsync();
-            }
-            _Logger.LogInformation("**LOGGER** Write Brands success");
-
-
-            _Logger.LogInformation("**LOGGER** Write Products...");
-            await using (await _db.Database.BeginTransactionAsync())
-            {
                 _db.Products.AddRange(TestData.Products);
 
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Products] ON");
                 await _db.SaveChangesAsync();
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Products] OFF");
-
                 await _db.Database.CommitTransactionAsync();
             }
-            _Logger.LogInformation("**LOGGER** Write Products success");
+            _Logger.LogInformation("**LOGGER** Write data success");
 
         }
 
