@@ -1,7 +1,15 @@
 ﻿
 @{
-    ViewData["Title"] = "AccessDenied";
+    ViewData["Title"] = "Доступ запрещен";
 }
 
-<h1>AccessDenied</h1>
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+
+    <p>
+        <a asp-controller="Home" asp-action="Index">
+            На главную
+        </a>
+    </p>
+</div>
 
