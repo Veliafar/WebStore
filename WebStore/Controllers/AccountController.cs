@@ -20,6 +20,8 @@ namespace WebStore.Controllers
             _SignInManager = SignInManager;
         }
 
+        #region Register
+
         public IActionResult Register() => View(new RegisterUserViewModel());
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -46,6 +48,8 @@ namespace WebStore.Controllers
 
             return View(Model);
         }
+
+        #endregion
 
         public IActionResult Login() => View();
 
