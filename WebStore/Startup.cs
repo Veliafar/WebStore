@@ -120,6 +120,8 @@ namespace WebStore
                         "{controller=Home}/{action=Index}/{id?}"
                     );
             });
+
+            // lesson 2.2
         }
     }
 }
