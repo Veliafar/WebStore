@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.DAL.Context;
+using WebStore.Domain.Entities;
 
 namespace WebStore.Data
 {
@@ -13,7 +15,9 @@ namespace WebStore.Data
         private readonly WebStoreDB _db;
         private readonly ILogger<WebStoreDbInitializer> _Logger;
 
-        public WebStoreDbInitializer(WebStoreDB db, ILogger<WebStoreDbInitializer> Logger)
+        public WebStoreDbInitializer(WebStoreDB db,
+            ILogger<WebStoreDbInitializer> Logger
+            )
         {
             _db = db;
             _Logger = Logger;
@@ -28,16 +32,34 @@ namespace WebStore.Data
             //var db_created = await _db.Database.EnsureCreatedAsync();
 
             var pending_migrations = await _db.Database.GetPendingMigrationsAsync();
-
             var applied_migrations = await _db.Database.GetAppliedMigrationsAsync();
 
             if (pending_migrations.Any())
             {
                 _Logger.LogInformation("**LOGGER** use migrations {0}", string.Join(",", pending_migrations));
                 await _db.Database.MigrateAsync();
-            }                
+            }
 
-            await InitializeProductsAsync();
+            try
+            {
+                await InitializeProductsAsync();
+            }
+            catch (Exception e)
+            {
+                _Logger.LogError(e, "Product catalog init error");
+                throw;
+            }
+
+            //try
+            //{
+            //    await InitializeIdentityAsync();
+            //}
+            //catch (Exception e)
+            //{
+
+            //    _Logger.LogError(e, "Identity system init error");
+            //    throw;
+            //}
         }
 
         private async Task InitializeProductsAsync()
@@ -92,6 +114,9 @@ namespace WebStore.Data
 
         }
 
+        //private async Task InitializeIdentityAsync()
+        //{
 
+        //}
     }
 }
