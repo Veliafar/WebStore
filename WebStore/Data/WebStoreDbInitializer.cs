@@ -73,6 +73,7 @@ namespace WebStore.Data
 
             _Logger.LogInformation("**LOGGER** Write Sections...");
             await using (await _db.Database.BeginTransactionAsync())
+
             {
                 _db.Sections.AddRange(TestData.Sections);
 
