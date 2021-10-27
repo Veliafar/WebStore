@@ -77,16 +77,6 @@ namespace WebStore.Data
             _Logger.LogInformation("**LOGGER** Write Sections...");
             await using (await _db.Database.BeginTransactionAsync())
 
-            {
-                product.Section = sections_pool[product.SectionId];
-                if (product.BrandId is { } brand_id)
-                    product.Brand = brands_pool[brand_id];
-
-                product.Id = 0;
-                product.SectionId = 0;
-                product.BrandId = null;
-            }
-
             foreach (var section in TestData.Sections)
             {
                 section.Id = 0;
