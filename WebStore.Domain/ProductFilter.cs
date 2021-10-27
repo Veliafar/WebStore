@@ -6,5 +6,7 @@
 
         public int? BrandId { get; set; }
 
+        public int[] Ids { get; set; }
+
     }
 }
