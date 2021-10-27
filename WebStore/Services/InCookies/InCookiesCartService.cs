@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebStore.Domain;
 using WebStore.Domain.Entities;
+using WebStore.Infrastucture.Mapping;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -116,7 +118,19 @@ namespace WebStore.Services.InCookies
 
         public CartViewModel GetViewModel()
         {
-            return null;
+            var products = _ProductData.GetProducts(new ProductFilter()
+            {
+                Ids = Cart.Items.Select(item => item.ProductId).ToArray()
+            });
+
+            var products_views = products.ToView().ToDictionary(product => product.Id);
+
+            return new CartViewModel
+            {
+                Items = Cart.Items
+                    .Where(item => products_views.ContainsKey(item.ProductId))
+                    .Select(item => (products_views[item.ProductId], item.Quantity))
+            };
         }
     }
 }
