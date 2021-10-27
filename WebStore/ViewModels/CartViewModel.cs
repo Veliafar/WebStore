@@ -10,6 +10,6 @@ namespace WebStore.ViewModels
 
         public int ItesmCount => Items?.Sum(item => item.Quantity) ?? 0;
 
-        public decimal TotalPric => Items?.Sum(item => item.Product.Price * item.Quantity) ?? 0;
+        public decimal TotalPrice => Items?.Sum(item => item.Product.Price * item.Quantity) ?? 0;
     }
 }
